@@ -41,12 +41,11 @@ public class Bones : MonoBehaviour
     bone's rotation as a Euler is (0, 0, 0)
     */
     public Vector3 getBottomCenter() {
-        Vector3 returnPos;
+        Vector3 returnPos = Vector3.zero;
 
-        Vector3 objectPos = transform.position;
-        returnPos.y = objectPos.y - (1.5f);
-        returnPos.z = objectPos.z;
-        returnPos.x = objectPos.x;
+        Mesh mesh = GetComponent<MeshFilter>().mesh;
+        Bounds bounds = mesh.bounds;
+
 
         return returnPos;
     }

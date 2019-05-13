@@ -53,6 +53,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\BoneObj.cs" />
      <Compile Include="Assets\Scripts\Bones.cs" />
      <Compile Include="Assets\Scripts\FingerSpelling.cs" />
      <Compile Include="Assets\Scripts\IKProperties.cs" />
