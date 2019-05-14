@@ -7,6 +7,7 @@ The class that controlls Inverse Kinematics or linear progression of
 animation.
 @author Brower
  */
+ [RequireComponent(typeof(ForwardKinematics))]
 public class InverseKinematics : MonoBehaviour
 {
     /**
@@ -24,30 +25,29 @@ public class InverseKinematics : MonoBehaviour
     [Tooltip("This is where all bone properties are set.")]
     public BoneInformation boneInformation;
 
-    void Update() {
-        rotateOnArc(boneInformation.bones[0].boneRotation, boneInformation.bones[0]);
+    private ForwardKinematics fk;
+
+    void Start() {
+        fk = GetComponent<ForwardKinematics>();
     }
 
-    void ForwardKinematics() {
-
+    void Update() {
+        for (int i = 0; i < boneInformation.bones.Length; i++) {
+            fk.ForwardKinematic(boneInformation.bones[i], spliceArray(i+1, boneInformation.bones), boneInformation.bones[i].boneRotation);
+        }
     }
 
     /**
-    Rotates a given bone around the base point
-    @rotation the quaternion to rotate to
-    @bone the bone to rotate
+    Splices an array at an index +1
+    @idx the index to split the array
+    @arrayToSplice the array to splice at a given index
      */
-    void rotateOnArc(Quaternion rotation, Bone bone) {
-        Vector3 startBottomPos = bone.getBottom();
-        bone.getBone().rotation = rotation;
-        bone.refresh();
-        // bone.rotation = rotation;
-        Vector3 newBottomPos = bone.getBottom();
-        Vector3 finalPos = new Vector3(0, 0, 0);
-        finalPos.x = -(newBottomPos.x - startBottomPos.x);
-        finalPos.y = -(newBottomPos.y - startBottomPos.y);
-        finalPos.z = -(newBottomPos.z - startBottomPos.z);
-        bone.getBone().position += finalPos;
+    Bone[] spliceArray(int idx, Bone[] arrayToSplice) {
+        Bone[] res = new Bone[arrayToSplice.Length - idx];
+        for (int i = idx; i < arrayToSplice.Length; i++) {
+            res[i-idx] = arrayToSplice[i];
+        }
+        return res;
     }
 
     /**
