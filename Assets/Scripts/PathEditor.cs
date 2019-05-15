@@ -4,20 +4,12 @@ using UnityEngine;
 using UnityEditor;
 
 [CustomEditor(typeof(PathCreator))]
-public class PathEditor : EditorWindow {
+public class PathEditor : Editor {
 
     PathCreator creator;
     Path path;
 
-	void OnEnable()
-    {
-        creator = (PathCreator)target;
-        if (creator.path == null)
-        {
-            creator.CreatePath();
-        }
-        path = creator.path;
-    }
+    MyWindow win;
 
     void OnSceneGUI()
     {
@@ -39,7 +31,7 @@ public class PathEditor : EditorWindow {
 
     void Draw()
     {
-
+        // Debug.Log(win.myFloat);
         for (int i = 0; i < path.NumSegments; i++)
         {
             Vector2[] points = path.GetPointsInSegment(i);
@@ -56,8 +48,20 @@ public class PathEditor : EditorWindow {
             if (path[i] != newPos)
             {
                 Undo.RecordObject(creator, "Move point");
+                //newPos.x = 3;
                 path.MovePoint(i, newPos);
+                // Debug.Log(newPos.x);
             }
         }
+    }
+
+    void OnEnable()
+    {
+        creator = (PathCreator)target;
+        if (creator.path == null)
+        {
+            creator.CreatePath();
+        }
+        path = creator.path;
     }
 }

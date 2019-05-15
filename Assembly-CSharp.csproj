@@ -52,11 +52,12 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Bones.cs" />
-     <Compile Include="Assets\Scripts\ExampleWindow.cs" />
      <Compile Include="Assets\Scripts\FingerSpelling.cs" />
      <Compile Include="Assets\Scripts\IKProperties.cs" />
      <Compile Include="Assets\Scripts\InputHandler.cs" />
      <Compile Include="Assets\Scripts\LookAt.cs" />
+     <Compile Include="Assets\Scripts\MyWindow.cs" />
+     <Compile Include="Assets\Scripts\NewBehaviourScript.cs" />
      <Compile Include="Assets\Scripts\Path.cs" />
      <Compile Include="Assets\Scripts\PathCreator.cs" />
      <Compile Include="Assets\Scripts\PathEditor.cs" />
