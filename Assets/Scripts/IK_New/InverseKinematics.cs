@@ -32,7 +32,7 @@ public class InverseKinematics : MonoBehaviour
     }
 
     void Update() {
-        fk.ForwardKinematic(boneInformation.bones, boneInformation.bones[0].boneRotation);
+        fk.ForwardKinematic(boneInformation.bones);
         // for(int i = 0; i < boneInformation.bones.Length-1; i++) {
             // fk.rotateOnArc(boneInformation.bones[i].boneRotation, boneInformation.bones[i], )
         // }

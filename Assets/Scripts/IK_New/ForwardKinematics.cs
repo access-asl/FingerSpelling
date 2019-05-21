@@ -14,10 +14,13 @@ public class ForwardKinematics : MonoBehaviour
     @bonesToMove the bones to move with [0] being the base
     @rotation The rotation to put the bones at
      */
-    public void ForwardKinematic(Bone[] bonesToMove, Quaternion rotation) {
+    public void ForwardKinematic(Bone[] bonesToMove) {
         Vector3 root = bonesToMove[0].getBottom();
         rotateOnArc(bonesToMove[0].boneRotation, bonesToMove[0], root);
         setBoneBottomPos(bonesToMove[1], bonesToMove[0].getTop());
+        foreach(Bone b in bonesToMove) {
+            b.refresh();
+        }
         rotateOnArc(bonesToMove[1].boneRotation, bonesToMove[1], bonesToMove[0].getTop());
         //set the bottom position of the bone[1] to the top pos of the bone[0]
     }
