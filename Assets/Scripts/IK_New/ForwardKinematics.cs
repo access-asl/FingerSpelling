@@ -17,11 +17,29 @@ public class ForwardKinematics : MonoBehaviour
     public void ForwardKinematic(Bone[] bonesToMove) {
         Vector3 root = bonesToMove[0].getBottom();
         rotateOnArc(bonesToMove[0].boneRotation, bonesToMove[0], root);
-        setBoneBottomPos(bonesToMove[1], bonesToMove[0].getTop());
-        foreach(Bone b in bonesToMove) {
-            b.refresh();
+        bonesToMove[0].refresh();
+        for (int i = 1; i < bonesToMove.Length; i++) {
+            setBoneBottomPos(bonesToMove[i], bonesToMove[i-1].getTop());
+            bonesToMove[i].refresh();
         }
-        rotateOnArc(bonesToMove[1].boneRotation, bonesToMove[1], bonesToMove[0].getTop());
+        for (int i = 1; i < bonesToMove.Length; i++) {
+            rotateOnArc(bonesToMove[i].boneRotation, bonesToMove[i], bonesToMove[i-1].getTop());
+            setBoneBottomPos(bonesToMove[i], bonesToMove[i-1].getTop());
+            bonesToMove[i].refresh();
+        }
+
+
+
+        // Vector3 root = bonesToMove[0].getBottom();
+        // rotateOnArc(bonesToMove[0].boneRotation, bonesToMove[0], root);
+        // setBoneBottomPos(bonesToMove[1], bonesToMove[0].getTop());
+        // foreach(Bone b in bonesToMove) {
+        //     b.refresh();
+        // }
+        // rotateOnArc(Quaternion.Inverse(bonesToMove[0].boneRotation) * bonesToMove[1].boneRotation, bonesToMove[1], bonesToMove[0].getTop());
+        
+        
+        // rotateOnArc(bonesToMove[1].boneRotation, bonesToMove[1], bonesToMove[0].getTop());
         //set the bottom position of the bone[1] to the top pos of the bone[0]
     }
 
