@@ -45,7 +45,7 @@ public class Bone : MonoBehaviour
     private Vector3 calculateBottom() {
         //The distance in a downward direction to go to hit the exact bottom of the object
         float halfSize = bone.lossyScale.y/2;
-        return (-bone.up) * halfSize;
+        return ((-bone.up) * halfSize) + getBone().position;
     }
 
     /**
@@ -53,7 +53,7 @@ public class Bone : MonoBehaviour
      */
     private Vector3 calculateTop() {
         float halfSize = bone.localScale.y/2;
-        return (bone.up) * halfSize;
+        return ((bone.up) * halfSize) + getBone().position;
     }
 
     /**
@@ -63,7 +63,10 @@ public class Bone : MonoBehaviour
         if (debug) {
             Gizmos.color = new Color(1, 0, 0, 0.5f);
             Gizmos.DrawSphere(new Vector3(0, -.5f, 0), .1f);
-            Gizmos.DrawCube(transform.position, new Vector3(.1f, .1f, .1f));
+            Gizmos.color = new Color(0, 0, 1, .5f);
+            Gizmos.DrawCube(calculateTop(), Vector3.one * .1f);
+            Gizmos.color = new Color(0, 1, 0, 0.5f);
+            Gizmos.DrawCube(calculateBottom(), Vector3.one * .1f);
         }
     }
 }

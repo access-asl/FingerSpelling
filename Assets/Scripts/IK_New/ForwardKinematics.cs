@@ -14,25 +14,12 @@ public class ForwardKinematics : MonoBehaviour
     @bonesToMove the bones to move with [0] being the base
     @rotation The rotation to put the bones at
      */
-    public void ForwardKinematic(Bone root, Bone[] bonesToMove, Quaternion rotation) {
-        Vector3 pivot = root.getBottom();
-        rotateOnArc(rotation, root, pivot);
-        root.refresh();
-        setBoneBottomPos(bonesToMove[0], root.getTop());
-
-
-        // Vector3 pivot = root.getBottom();
-        // rotateOnArc(rotation, root, pivot);
-        // Debug.Log(bonesToMove.Length);
-        // for (int i = 0; i < bonesToMove.Length; i++) {
-        //     root.refresh();
-        //     Vector3 rootTop = root.getTop();
-        //     bonesToMove[i].getBone().position = getLocationRelative(bonesToMove[i].getBone().position, rootTop);
-        // }
-        // // foreach (Bone b in bonesToMove) {
-        // //     b.getBone().position = getLocationRelative(b.getBone().position, pivot);
-        // //     // b.getBone().rotation = rotation;
-        // // }
+    public void ForwardKinematic(Bone[] bonesToMove, Quaternion rotation) {
+        Vector3 root = bonesToMove[0].getBottom();
+        rotateOnArc(bonesToMove[0].boneRotation, bonesToMove[0], root);
+        setBoneBottomPos(bonesToMove[1], bonesToMove[0].getTop());
+        rotateOnArc(bonesToMove[1].boneRotation, bonesToMove[1], bonesToMove[0].getTop());
+        //set the bottom position of the bone[1] to the top pos of the bone[0]
     }
 
     /**
@@ -41,7 +28,7 @@ public class ForwardKinematics : MonoBehaviour
     @bone the bone to rotate
     @pivot the point to spin about
      */
-    void rotateOnArc(Quaternion rotation, Bone bone, Vector3 pivot) {
+    public void rotateOnArc(Quaternion rotation, Bone bone, Vector3 pivot) {
         bone.getBone().rotation = rotation;
         bone.refresh();
         Vector3 newBottomPos = bone.getBottom();//getLocationRelative(bone.getBottom(), pivot);
@@ -52,6 +39,11 @@ public class ForwardKinematics : MonoBehaviour
         bone.getBone().position += finalPos;
     }
 
+    /**
+    Sets the bottom pos of a bone to a given position
+    @bone the bone to set to the bottom
+    @pos the position to set the bone's bottom to.
+     */
     void setBoneBottomPos(Bone bone, Vector3 pos) {
         Vector3 newPos = getLocationRelative(bone.getBone().position, pos);
         bone.getBone().position = newPos;
