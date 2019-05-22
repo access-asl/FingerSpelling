@@ -55,10 +55,9 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\ASL\FingerSpelling.cs" />
      <Compile Include="Assets\Scripts\ASL\InputHandler.cs" />
-     <Compile Include="Assets\Scripts\Bones.cs" />
-     <Compile Include="Assets\Scripts\IK_New\Bone.cs" />
-     <Compile Include="Assets\Scripts\IK_New\ForwardKinematics.cs" />
-     <Compile Include="Assets\Scripts\IK_New\InverseKinematics.cs" />
+     <Compile Include="Assets\Scripts\IK_SubSys\Bone.cs" />
+     <Compile Include="Assets\Scripts\IK_SubSys\ForwardKinematics.cs" />
+     <Compile Include="Assets\Scripts\IK_SubSys\InverseKinematics.cs" />
  <Reference Include="Unity.TextMeshPro.Editor">
  <HintPath>/Users/jacobbrower/Documents/UnityProjects/IK System/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
  </Reference>
