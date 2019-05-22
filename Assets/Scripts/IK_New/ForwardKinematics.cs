@@ -15,6 +15,10 @@ public class ForwardKinematics : MonoBehaviour
     @rotation The rotation to put the bones at
      */
     public void ForwardKinematic(Bone[] bonesToMove) {
+        fkRotation(bonesToMove);
+    }
+
+    void fkRotation(Bone[] bonesToMove) {
         rotateOnArc(bonesToMove[0].boneRotation, bonesToMove[0], bonesToMove[0].getBottom());
         bonesToMove[0].refresh();
         for (int i = 1; i < bonesToMove.Length; i++) {
