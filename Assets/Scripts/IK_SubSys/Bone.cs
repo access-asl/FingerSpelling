@@ -20,9 +20,20 @@ public class Bone : MonoBehaviour
     //The rotation of the bone
     public Quaternion boneRotation;
 
+    //The previous frames rotation of this bone;
+    private Quaternion prevRotation;
+
+    //The pivot to rotate the bone around
+    private Vector3 pivot;
+
     void Start() {
         bottom = calculateBottom();
         top = calculateTop();
+        prevRotation = boneRotation;
+    }
+
+    void Update() {
+        rotateBone();
     }
 
     public Vector3 getTop() { return this.top; }
@@ -55,6 +66,23 @@ public class Bone : MonoBehaviour
         float halfSize = bone.localScale.y/2;
         return ((bone.up) * halfSize) + getBone().position;
     }
+
+    private void rotateBone() {
+        Quaternion differenceInRotation = boneRotation * Quaternion.Inverse(prevRotation);
+        transform.rotation = differenceInRotation;
+        Vector3 prevBottom = getBottom();
+        Vector3 prevTop = getTop();
+        refresh();
+        Vector3 finalPos = new Vector3(0, 0, 0);
+
+        finalPos.x = -(bottom.x - pivot.x);
+        finalPos.y = -(bottom.y - pivot.y);
+        finalPos.z = -(bottom.z - pivot.z);
+        transform.position += finalPos;
+        prevRotation = boneRotation;
+    }
+
+    public void setPivot(Vector3 piv) { this.pivot = piv; }
 
     /**
     For debugging, if debug is true then display some helper points

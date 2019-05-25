@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//Quickbooks
 /**
 The class that controlls Inverse Kinematics or linear progression of
 animation.

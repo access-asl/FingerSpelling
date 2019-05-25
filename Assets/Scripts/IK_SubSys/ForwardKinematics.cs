@@ -19,12 +19,36 @@ public class ForwardKinematics : MonoBehaviour
     }
 
     void fkRotation(Bone[] bonesToMove) {
-        rotateOnArc(bonesToMove[0].boneRotation, bonesToMove[0], bonesToMove[0].getBottom());
-        bonesToMove[0].refresh();
-        for (int i = 1; i < bonesToMove.Length; i++) {
-            rotateOnArc(bonesToMove[i].boneRotation, bonesToMove[i], bonesToMove[i-1].getTop());
-            bonesToMove[i].refresh();
+        for (int i = 0; i < bonesToMove.Length; i++) {
+            if (i == 0) {
+                for(int j = i+1; j < bonesToMove.Length; j++) {
+                    bonesToMove[j].transform.parent = bonesToMove[j-1].transform;
+                }
+                rotateOnArc(bonesToMove[i].boneRotation, bonesToMove[i], bonesToMove[i].getBottom());
+                bonesToMove[i].refresh();
+            } else {
+                for(int j = i+1; j < bonesToMove.Length; j++) {
+                    bonesToMove[j].transform.parent = bonesToMove[j-1].transform;
+                }
+                rotateOnArc(bonesToMove[i].boneRotation, bonesToMove[i], bonesToMove[i-1].getTop());
+                bonesToMove[i].refresh();
+            }
         }
+
+
+        // for (int i = 0; i < bonesToMove.Length; i++) {
+        //     if (i == 0) {
+        //         rotateOnArc(bonesToMove[i].boneRotation, bonesToMove[i], bonesToMove[i].getBottom());
+        //         bonesToMove[i].refresh();
+        //     } else {
+        //         rotateOnArc(bonesToMove[i].boneRotation, bonesToMove[i], bonesToMove[i-1].getTop());
+        //         bonesToMove[i].refresh();
+        //         for (int j = i; j < bonesToMove.Length; j++) {
+        //             rotateOnArc(bonesToMove[i].boneRotation, bonesToMove[j], bonesToMove[j-1].getTop());
+        //             bonesToMove[j].refresh();
+        //         }
+        //     }
+        // }
     }
 
     /**
@@ -34,14 +58,8 @@ public class ForwardKinematics : MonoBehaviour
     @pivot the point to spin about
      */
     public void rotateOnArc(Quaternion rotation, Bone bone, Vector3 pivot) {
-        bone.getBone().rotation = rotation;
-        bone.refresh();
-        Vector3 newBottomPos = bone.getBottom();
-        Vector3 finalPos = new Vector3(0, 0, 0);
-        finalPos.x = -(newBottomPos.x - pivot.x);
-        finalPos.y = -(newBottomPos.y - pivot.y);
-        finalPos.z = -(newBottomPos.z - pivot.z);
-        bone.getBone().position += finalPos;
+        bone.setPivot(pivot);
+        bone.boneRotation = rotation;
     }
 
     /**
