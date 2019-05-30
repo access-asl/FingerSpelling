@@ -53,11 +53,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\Bones.cs" />
-     <Compile Include="Assets\Scripts\FingerSpelling.cs" />
-     <Compile Include="Assets\Scripts\IKProperties.cs" />
-     <Compile Include="Assets\Scripts\InputHandler.cs" />
-     <Compile Include="Assets\Scripts\LookAt.cs" />
+     <Compile Include="Assets\Scripts\ASL\FingerSpelling.cs" />
+     <Compile Include="Assets\Scripts\ASL\InputHandler.cs" />
+     <Compile Include="Assets\Scripts\IK_SubSys\Bone.cs" />
+     <Compile Include="Assets\Scripts\IK_SubSys\InverseKinematics.cs" />
  <Reference Include="Unity.TextMeshPro.Editor">
  <HintPath>/Users/jacobbrower/Documents/UnityProjects/IK System/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
  </Reference>
