@@ -76,6 +76,8 @@ public class InverseKinematics : MonoBehaviour
 
     void OnDrawGizmos() {
         if (boneInformation.debuggingBone) {
+            Gizmos.color = new Color(0, 200, 255, .5f);
+            Gizmos.DrawCube(ikModifiers.pole.position, Vector3.one * .2f);
             var cur = this.transform;
             for (int i = 0; i < boneInformation.chainLength && cur != null && cur.parent != null; i++) {
                 var scale = Vector3.Distance(cur.position, cur.parent.position) * .1f;
