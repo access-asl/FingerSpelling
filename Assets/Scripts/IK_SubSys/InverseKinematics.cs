@@ -11,7 +11,7 @@ animation.
 public class InverseKinematics : MonoBehaviour
 {
     [System.Serializable]
-    public class Bone {
+    public class BoneInfo {
         public bool debuggingBone;
         public int chainLength;
     }
@@ -24,7 +24,7 @@ public class InverseKinematics : MonoBehaviour
         public float delta = .1f;
     }
 
-    public Bone boneInformation;
+    public BoneInfo boneInformation;
     public InverseKinematicsVariables ikModifiers;
     protected Quaternion TargetInitialRotation;
     protected Quaternion EndInitialRotation;
@@ -40,6 +40,7 @@ public class InverseKinematics : MonoBehaviour
         completedLength = 0;
         for (int i = boneInformation.chainLength - 1; i >= 0; i--) {
             completedLength += (cur.position - cur.parent.position).magnitude;
+            cur.gameObject.AddComponent<Bone>();
             bones[i+1] = cur;
             bones[i] = cur.parent;
             cur = cur.parent;
@@ -78,6 +79,8 @@ public class InverseKinematics : MonoBehaviour
         if (boneInformation.debuggingBone) {
             Gizmos.color = new Color(0, 200, 255, .5f);
             Gizmos.DrawCube(ikModifiers.pole.position, Vector3.one * .2f);
+            Gizmos.color = new Color(255, 0, 0, .5f);
+            Gizmos.DrawCube(ikModifiers.target.position, Vector3.one * .2f);
             var cur = this.transform;
             for (int i = 0; i < boneInformation.chainLength && cur != null && cur.parent != null; i++) {
                 var scale = Vector3.Distance(cur.position, cur.parent.position) * .1f;
