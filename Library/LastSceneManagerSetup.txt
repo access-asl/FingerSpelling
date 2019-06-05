@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/interpolator.unity
+- path: Assets/Scenes/BaseIK.unity
   isLoaded: 1
   isActive: 1
