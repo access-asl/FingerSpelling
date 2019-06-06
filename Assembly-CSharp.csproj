@@ -57,7 +57,10 @@
      <Compile Include="Assets\Scripts\ASL\InputHandler.cs" />
      <Compile Include="Assets\Scripts\IK_SubSys\Bone.cs" />
      <Compile Include="Assets\Scripts\IK_SubSys\InverseKinematics.cs" />
+     <Compile Include="Assets\Scripts\IK_SubSys\Pole.cs" />
      <Compile Include="Assets\Scripts\Interpolator\Interpolate.cs" />
+     <Compile Include="Assets\Scripts\Interpolator\State.cs" />
+     <Compile Include="Assets\Scripts\Interpolator\StateSaver.cs" />
  <Reference Include="Unity.TextMeshPro.Editor">
  <HintPath>/Users/jcb8561/Documents/UnityProjects/FingerSpelling/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
  </Reference>
