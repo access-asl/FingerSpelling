@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/BaseIK.unity
+- path: Assets/Scenes/SavedStates.unity
   isLoaded: 1
   isActive: 1

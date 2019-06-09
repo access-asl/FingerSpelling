@@ -2,6 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/**
+Takes an object to manipulate and then will go from where the object is to
+where the object should go.
+@author Br0wer
+ */
+ [RequireComponent(typeof(StateCustom))]
 public class StateSaver : MonoBehaviour
 {
     public Transform objectToManipulate;
@@ -14,7 +20,12 @@ public class StateSaver : MonoBehaviour
     public Saved saved;
 
     public void saveState(State stateToSave) {
-        State[] newArray = new State[saved.savedStates.Length];
+        State[] newArray;
+        if (saved.savedStates == null) {
+            newArray = new State[1];
+        } else {
+            newArray = new State[saved.savedStates.Length + 1];
+        }
         for (int i = 0; i < saved.savedStates.Length; i++) {
             newArray[i] = saved.savedStates[i];
         }
