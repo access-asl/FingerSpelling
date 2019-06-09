@@ -7,9 +7,15 @@ using UnityEditor;
 public class StateEditor : Editor
 {
     public override void OnInspectorGUI() {
+        GameObject root = GameObject.FindGameObjectWithTag("StateSaver");
         if (GUILayout.Button("Save Current State")) {
-            GameObject root = GameObject.FindGameObjectWithTag("StateSaver");
             root.GetComponent<StateCustom>().saveThisState();
+        }
+        if (GUILayout.Button("Print All States")) {
+            root.GetComponent<StateCustom>().printAllStates();
+        }
+        if (GUILayout.Button("Clear All States")) {
+            root.GetComponent<StateCustom>().clearAllStates();
         }
     }
 }

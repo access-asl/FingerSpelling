@@ -26,10 +26,18 @@ public class StateSaver : MonoBehaviour
         } else {
             newArray = new State[saved.savedStates.Length + 1];
         }
-        for (int i = 0; i < saved.savedStates.Length; i++) {
-            newArray[i] = saved.savedStates[i];
+        if (saved.savedStates != null) {
+            for (int i = 0; i < saved.savedStates.Length; i++) {
+                newArray[i] = saved.savedStates[i];
+            }
         }
-        newArray[saved.savedStates.Length] = stateToSave;
-        saved.savedStates = newArray;
+        if (saved.savedStates != null) {
+            newArray[saved.savedStates.Length] = stateToSave;
+            saved.savedStates = newArray;
+        } else {
+            newArray[0] = stateToSave;
+            saved.savedStates = newArray;
+        }
+        Debug.Log(stateToSave.toString());
     }
 }

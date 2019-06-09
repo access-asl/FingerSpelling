@@ -8,12 +8,25 @@ public class StateCustom : MonoBehaviour
     public void saveThisState() {
         sS = GameObject.FindGameObjectWithTag("StateSaver").GetComponent<StateSaver>();
 
-        if (sS == null) {
-            Debug.Log("te fucl");
-            return;
-        }
         State currState = new State (sS.objectToManipulate.position, sS.objectToManipulate.lossyScale, sS.objectToManipulate.rotation);
         sS.saveState(currState);
-        Debug.Log(currState.toString());
+    }
+
+    public void printAllStates() {
+        sS = GameObject.FindGameObjectWithTag("StateSaver").GetComponent<StateSaver>();
+
+        if (sS.saved.savedStates == null) {
+            Debug.Log("No States to print.");
+            return;
+        }
+        foreach (State s in sS.saved.savedStates) {
+            Debug.Log(s.toString());
+        }
+    }
+
+    public void clearAllStates() {
+        sS = GameObject.FindGameObjectWithTag("StateSaver").GetComponent<StateSaver>();
+        sS.saved.savedStates = null;
+        Debug.Log("States Cleared!");
     }
 }
