@@ -2,9 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/**
+Holds the references and function calls for StateSaves so,
+in the state Saver class the object to manipulate will display
+and custom buttons exist for in editor editing
+@author Br0wer
+ */
 public class StateCustom : MonoBehaviour
 {
     StateSaver sS;
+    /**
+    Saves this current state to an array
+    TODO: Will be replaced by Dan's RB Binary tree
+     */
     public void saveThisState() {
         sS = GameObject.FindGameObjectWithTag("StateSaver").GetComponent<StateSaver>();
 
@@ -12,6 +22,9 @@ public class StateCustom : MonoBehaviour
         sS.saveState(currState);
     }
 
+    /**
+    Prints the states in the array
+     */
     public void printAllStates() {
         sS = GameObject.FindGameObjectWithTag("StateSaver").GetComponent<StateSaver>();
 
@@ -24,6 +37,9 @@ public class StateCustom : MonoBehaviour
         }
     }
 
+    /**
+    Removes all the states from the array
+     */
     public void clearAllStates() {
         sS = GameObject.FindGameObjectWithTag("StateSaver").GetComponent<StateSaver>();
         sS.saved.savedStates = null;

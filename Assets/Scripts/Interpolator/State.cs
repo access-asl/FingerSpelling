@@ -12,6 +12,9 @@ public class State
     private Vector3 scale;
     private Quaternion rot;
 
+    /**
+    This creates a new state
+     */
     public State(Vector3 pos, Vector3 scale, Quaternion rot) {
         this.pos = pos;
         this.scale = scale;

@@ -19,6 +19,10 @@ public class StateSaver : MonoBehaviour
 
     public Saved saved;
 
+    /**
+    This function will store a state in the array
+    the stateToSave is the state that is being added to the array
+     */
     public void saveState(State stateToSave) {
         State[] newArray;
         if (saved.savedStates == null) {
