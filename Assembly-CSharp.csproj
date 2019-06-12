@@ -55,6 +55,8 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\ASL\FingerSpelling.cs" />
      <Compile Include="Assets\Scripts\ASL\InputHandler.cs" />
+     <Compile Include="Assets\Scripts\CurveCreation\Grid.cs" />
+     <Compile Include="Assets\Scripts\CurveCreation\Node.cs" />
      <Compile Include="Assets\Scripts\Editors\StateEditor.cs" />
      <Compile Include="Assets\Scripts\IK_SubSys\Bone.cs" />
      <Compile Include="Assets\Scripts\IK_SubSys\InverseKinematics.cs" />

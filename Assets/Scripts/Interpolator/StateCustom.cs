@@ -50,6 +50,8 @@ public class StateCustom : MonoBehaviour
     Switches to the next state in the array of states cyclicly
      */
     public void switchToNextState() {
+        if (sS.saved.savedStates == null) { return; }
+        
         sS.currState++;
         if (sS.currState >= sS.saved.savedStates.Length) {
             sS.currState = 0;
