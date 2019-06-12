@@ -21,5 +21,8 @@ public class StateEditor : Editor
         if (GUILayout.Button("Clear All States")) {
             root.GetComponent<StateCustom>().clearAllStates();
         }
+        if (GUILayout.Button("Switch To Next State")) {
+            root.GetComponent<StateCustom>().switchToNextState();
+        }
     }
 }

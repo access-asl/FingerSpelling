@@ -45,4 +45,19 @@ public class StateCustom : MonoBehaviour
         sS.saved.savedStates = null;
         Debug.Log("States Cleared!");
     }
+
+    /**
+    Switches to the next state in the array of states cyclicly
+     */
+    public void switchToNextState() {
+        sS.currState++;
+        if (sS.currState >= sS.saved.savedStates.Length) {
+            sS.currState = 0;
+        }
+
+        State currState = sS.saved.savedStates[sS.currState];
+        sS.objectToManipulate.position = currState.getPos();
+        sS.objectToManipulate.rotation = currState.getRot();
+        sS.objectToManipulate.localScale = currState.getScale();
+    }
 }

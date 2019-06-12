@@ -19,6 +19,8 @@ public class StateSaver : MonoBehaviour
 
     public Saved saved;
 
+    public int currState = 0;
+
     /**
     This function will store a state in the array
     the stateToSave is the state that is being added to the array
