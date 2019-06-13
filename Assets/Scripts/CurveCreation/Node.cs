@@ -19,8 +19,19 @@ public class Node
 
     public Vector3 position;
 
-    public Node (NodeState nodeState, Vector3 position) {
+    public int gridX;
+    public int gridY;
+    public int gCost;
+    public int hCost;
+
+    public Node prev;
+
+    public Node (NodeState nodeState, Vector3 position, int gridX, int gridY) {
         this.nodeState = nodeState;
         this.position = position;
+        this.gridX = gridX;
+        this.gridY = gridY;
     }
+
+    public int fCost  { get {return gCost + hCost;} }
 }

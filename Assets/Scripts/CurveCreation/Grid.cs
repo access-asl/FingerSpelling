@@ -12,37 +12,50 @@ public class Grid : MonoBehaviour
     public LayerMask fuckThisObjectMask;
     public Vector2 gridSize;
     public float nodeSize;
+    float prevNodeSize;
     Node[,] grid;
 
     float nodeRadius;
     int gridSizeX, gridSizey;
+    
+    public List<Node> path;
 
     void Start() {
-        nodeRadius = nodeSize/2;
-        gridSizeX = Mathf.RoundToInt(gridSize.x/nodeSize);
-        gridSizey = Mathf.RoundToInt(gridSize.y/nodeSize);
-        CreateGrid();
+        calculateGrid();
+        createGrid();
     }
 
     void Update() {
-        CheckGrid();
+        if (prevNodeSize == nodeSize) {
+            checkGrid();
+        } else {
+            calculateGrid();
+            createGrid();
+        }
     }
 
-    void CreateGrid() {
+    void calculateGrid() {
+        nodeRadius = nodeSize/2;
+        gridSizeX = Mathf.RoundToInt(gridSize.x/nodeSize);
+        gridSizey = Mathf.RoundToInt(gridSize.y/nodeSize);
+    }
+
+    void createGrid() {
         grid = new Node[gridSizeX, gridSizey];
         for(int x = 0; x < gridSizeX; x++) {
             for (int y = 0; y < gridSizey; y++) {
-                Vector3 nodePos = new Vector3(x, y, 0);
+                Vector3 nodePos = Vector3.right * (x * nodeSize) + Vector3.up * (y * nodeSize);
                 bool posOcupied = Physics.CheckSphere(nodePos, nodeRadius, fuckThisObjectMask);
                 Node.NodeState nodeState = posOcupied == true ? 
                     nodeState = Node.NodeState.taken : 
                     nodeState = Node.NodeState.available;
-                grid[x,y] = new Node(nodeState, nodePos);
+                
+                grid[x,y] = new Node(nodeState, nodePos, x, y);
             }
         }
     }
 
-    void CheckGrid() {
+    void checkGrid() {
         for(int x = 0; x < gridSizeX; x++) {
             for (int y = 0; y < gridSizey; y++) {
                 bool posOcupied = Physics.CheckSphere(grid[x,y].position, nodeRadius, fuckThisObjectMask);
@@ -54,25 +67,64 @@ public class Grid : MonoBehaviour
         }
     }
 
+    public List<Node> getNeighbors(Node n) {
+        List<Node> neighbors = new List<Node>();
+
+        for (int x = -1; x < 2; x++) {
+            for (int y = -1; y < 2; y++) {
+                if (x==0 && y==0) {
+                    continue;
+                }
+
+                int validX = n.gridX + x;
+                int validY = n.gridY + y;
+
+                if (validX >= 0 && validX < gridSizeX && validY >= 0 && validY < gridSizey) {
+                    neighbors.Add(grid[validX,validY]);
+                }
+            }
+        }
+        return neighbors;
+    }
+
+    public Node findNode(Vector3 pos) {
+        float xNode = (pos.x + gridSize.x/2)/gridSize.x;
+        float yNode = (pos.y + gridSize.y/2)/gridSize.y;
+
+        xNode = Mathf.Clamp01(xNode);
+        yNode = Mathf.Clamp01(yNode);
+
+        int x = Mathf.RoundToInt((gridSizeX-1) * xNode);
+        int y = Mathf.RoundToInt((gridSizey-1) * yNode);
+
+        return grid[x,y];
+    }
+
     void OnDrawGizmos() {
         Vector3 mid = new Vector3 (gridSize.x/2 - nodeRadius, gridSize.y/2 - nodeRadius, 0);
         Gizmos.DrawWireCube(mid, new Vector3(gridSize.x, gridSize.y, 1));
 
         if (grid != null) {
             foreach (Node node in grid) {
+                if (path != null) {
+                    if (path.Contains(node)) {
+                        Gizmos.color = new Color(0, 200, 255);
+                    Gizmos.DrawCube(node.position, Vector3.one * nodeSize);
+                    }
+                }
                 Node.NodeState nState = node.nodeState;
                 switch (nState) {
                     case Node.NodeState.available:
                         Gizmos.color = new Color(255, 255, 255, .5f);
-                        Gizmos.DrawCube(node.position, Vector3.one);
+                        Gizmos.DrawCube(node.position, Vector3.one * nodeSize);
                         break;
                     case Node.NodeState.taken:
                         Gizmos.color = new Color(0, 0, 0, .5f);
-                        Gizmos.DrawCube(node.position, Vector3.one);
+                        Gizmos.DrawCube(node.position, Vector3.one * nodeSize);
                         break;
                     case Node.NodeState.nonOptimal:
                         Gizmos.color = new Color(150, 150, 150, .5f);
-                        Gizmos.DrawCube(node.position, Vector3.one);
+                        Gizmos.DrawCube(node.position, Vector3.one * nodeSize);
                         break;
                 }
             }
