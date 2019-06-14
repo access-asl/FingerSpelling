@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /**
-An object to store position, scale, 
+An object to store position, scale, rotation
+@author Br0wer
  */
 public class State
 {
@@ -11,6 +12,9 @@ public class State
     private Vector3 scale;
     private Quaternion rot;
 
+    /**
+    This creates a new state
+     */
     public State(Vector3 pos, Vector3 scale, Quaternion rot) {
         this.pos = pos;
         this.scale = scale;
@@ -28,4 +32,8 @@ public class State
     public void setScale(Vector3 scale) { this.scale = scale; }
 
     public void setRot(Quaternion rot) { this.rot = rot; }
+
+    public string toString() {
+        return "Position: " + getPos() + "\nScale: " + getScale() + "\nRotation: " + getRot().eulerAngles;
+    }
 }

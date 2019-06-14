@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-//Quickbooks
+
 /**
 The class that controlls Inverse Kinematics or linear progression of
 animation.
@@ -36,11 +36,10 @@ public class InverseKinematics : MonoBehaviour
         TargetInitialRotation = ikModifiers.target.rotation;
         EndInitialRotation = transform.rotation;
 
-        var cur = this.transform;
+        Transform cur = this.transform;
         completedLength = 0;
         for (int i = boneInformation.chainLength - 1; i >= 0; i--) {
             completedLength += (cur.position - cur.parent.position).magnitude;
-            cur.gameObject.AddComponent<Bone>();
             bones[i+1] = cur;
             bones[i] = cur.parent;
             cur = cur.parent;
@@ -48,7 +47,7 @@ public class InverseKinematics : MonoBehaviour
     }
 
     void LateUpdate() {
-        var lastBone = bones[bones.Length-1];
+        Transform lastBone = bones[bones.Length-1];
         for (int iterations = 0; iterations < ikModifiers.iterations; iterations++) {
             for (int i = bones.Length - 1; i >= 0; i--) {
                 if (i == bones.Length - 1) {
